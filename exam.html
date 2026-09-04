@@ -2,98 +2,111 @@
 <html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>They averaged the ledger</title>
 <style>
-:root{--bg:#07080a;--panel:#101318;--line:#2a3140;--text:#e8edf5;--dim:#8b95a8;--food:#e6b84d;--reject:#ff5c5c;--ok:#3dcc8a}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 IBM Plex Sans,Segoe UI,sans-serif}
-a{color:#9bb7ff;text-decoration:none}.nav{display:flex;gap:18px;padding:16px 28px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}.nav a.on{color:var(--text)}
-.wrap{padding:28px 28px 80px;max-width:980px;margin:0 auto}
-.kicker{color:var(--dim);letter-spacing:.16em;font-size:11px;text-transform:uppercase}
-h1{font-size:clamp(28px,4vw,42px);font-weight:550;letter-spacing:-.03em;margin:8px 0 10px;line-height:1.1}
-.lede{color:var(--dim);max-width:58ch;margin:0 0 28px}
-.dates{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch;margin-bottom:14px}
-@media(max-width:800px){.dates{grid-template-columns:1fr}.op{display:none}}
-.date{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}
-.date .when{font-size:18px;margin:4px 0}.date .kind{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--food)}.date .what{font-size:13px;color:var(--dim)}
-.op{color:var(--reject);font-size:22px;align-self:center;text-align:center}
-.formula{border:1px dashed var(--line);border-radius:8px;padding:12px 14px;color:var(--dim);margin-bottom:18px;font-family:ui-monospace,Menlo,monospace;font-size:13px}
-.hero-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
-@media(max-width:700px){.hero-row{grid-template-columns:1fr}}
-.exam-hero{border:1px solid var(--reject);background:#1a0d0e;padding:18px;border-radius:8px}
-.exam-hero .big{font-size:56px;color:var(--reject);margin:2px 0 6px;letter-spacing:-.04em;line-height:1}
-table.score{width:100%;border-collapse:collapse;font-size:13px;margin:8px 0 28px}
-table.score th,table.score td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
-table.score th{color:var(--dim);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+:root{--bg:#07080a;--panel:#12151c;--line:#2c3344;--text:#eef2f8;--dim:#8b95a8;--food:#e6b84d;--status:#6ea8ff;--label:#c084fc;--reject:#ff6b6b;--ok:#3dcc8a}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 IBM Plex Sans,Segoe UI,sans-serif}
+a{color:#9bb7ff;text-decoration:none}
+.nav{display:flex;gap:20px;padding:14px 22px;border-bottom:1px solid var(--line);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}.nav a.on{color:var(--text)}
+.wrap{padding:22px 22px 72px;max-width:980px;margin:0 auto}
+.kicker{color:var(--dim);letter-spacing:.14em;font-size:11px;text-transform:uppercase}
+h1{font-size:clamp(26px,5vw,40px);font-weight:560;letter-spacing:-.03em;margin:8px 0;line-height:1.15}
+.lede{color:var(--dim);max-width:62ch;margin:0 0 22px}
+.who{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 22px;color:#c5ccd8}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 0 14px}
+@media(max-width:800px){.grid3,.hero{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px}
+.kind{font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.kind.food{color:var(--food)}.kind.label{color:var(--label)}.kind.status{color:var(--status)}.kind.trial{color:#ffb86b}
+.when{font-size:20px;margin:4px 0}.what{color:var(--dim);font-size:14px}.changed{margin-top:8px;font-size:13px}.changed b{color:var(--text)}
+.formula{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--dim);border:1px dashed var(--line);border-radius:10px;padding:12px 14px;margin:0 0 16px}
+.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 0 22px}
+.wrong{border:1px solid var(--reject);background:#1a0d0e;border-radius:10px;padding:16px}
+.right{border:1px solid var(--ok);background:#0d1a14;border-radius:10px;padding:16px}
+.big{font-size:48px;line-height:1;letter-spacing:-.04em;margin:4px 0}
+.wrong .big{color:var(--reject)}.right .big{color:var(--ok);font-size:28px;line-height:1.15;margin-top:8px}
+.score{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 24px}
+.score th,.score td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+.score th{color:var(--dim);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
 .fail{color:var(--reject)}.pass{color:var(--ok)}.thin{color:var(--food)}
-details.qa{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:8px}
-details.qa summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:88px 1fr auto;gap:10px;align-items:center;padding:12px 14px}
+details.qa{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:0 0 8px}
+details.qa summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:92px 1fr auto;gap:10px;align-items:center;padding:12px 14px}
 details.qa summary::-webkit-details-marker{display:none}
-.who{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.sumq{color:#d7deea;font-size:14px}
-.pill{font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);padding:2px 7px;border-radius:999px}
+.who2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.sumq{font-size:14px;color:#d7deea}
+.pill{font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);padding:3px 8px;border-radius:999px}
 .pill.fail{border-color:#7a3030;color:var(--reject)}.pill.pass{border-color:#2a5a40;color:var(--ok)}.pill.thin{border-color:#6a5420;color:var(--food)}
 .body{padding:0 14px 14px;border-top:1px solid var(--line)}
 .qlab{color:var(--food);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
-.prompt,.ans{white-space:pre-wrap;margin:4px 0 0}.prompt{color:#d7deea}.ans{color:#c5ccd8}
-footer{color:var(--dim);font-size:12px;margin-top:36px}
+.prompt,.ans{white-space:pre-wrap;margin:4px 0 0}.prompt{color:#d7deea}.ans{color:#c9d2e0}
+footer{color:var(--dim);font-size:13px;margin-top:32px}
 </style></head>
 <body>
-<div class="nav"><a href="index.html">Resolver</a><a class="on" href="exam.html">Exam</a></div>
+<div class="nav"><a href="index.html">Try the resolver</a><a class="on" href="exam.html">Exam</a></div>
 <div class="wrap">
-<div class="kicker">Unit test · scientific language</div>
-<h1>They averaged the ledger.</h1>
-<p class="lede">Asked for one year from three incompatible dates. ChatGPT emitted the rounded mean. Gemini emitted the floored mean. Neither year exists in folate policy.</p>
-<div class="dates">
-<div class="date"><div class="kind">Trial · not a mill</div><div class="when">20 Jul 1991</div><div class="what">MRC Lancet recurrence study. 4 mg PGA. Not a flour statute.</div></div>
-<div class="op">+</div>
-<div class="date"><div class="kind">Mill · US force day</div><div class="when">1 Jan 1998</div><div class="what">FDA enriched-flour identity. Canada force is 11 Nov 1998.</div></div>
-<div class="op">+</div>
-<div class="date"><div class="kind">Label · unit change</div><div class="when">27 May 2016</div><div class="what">Nutrition Facts: 400 µg folate → 400 µg DFE. Mill unchanged.</div></div>
+<div class="kicker">A unit test · not a jailbreak</div>
+<h1>Two models averaged three different “folate” dates into a year that does not exist.</h1>
+<p class="lede">If you write or read “how much folate should people get,” this is the bug. One English word. Three objects. Adding the years is illegal math.</p>
+<div class="who"><b style="color:var(--text)">Who this is for.</b> Anyone who has seen “the US and Canada fortified in 1998” and treated it as one fact. Food scientists already know mill ≠ label ≠ serum. Most feeds do not. Nothing here picks a supplement. It asks you not to add unlike units.</div>
+<p class="kicker">Three objects. Only one of them is a mill.</p>
+<div class="grid3">
+<div class="card"><div class="kind trial">1991 · trial</div><div class="when">20 Jul 1991</div><div class="what">MRC Lancet paper. High-risk recurrence trial. 4 mg folic acid.</div><div class="changed"><b>Changed?</b> Evidence. Did not write US flour law. Did not change a label unit.</div></div>
+<div class="card"><div class="kind food">1998 · food / mill</div><div class="when">1 Jan 1998</div><div class="what">US force date: enriched flour must contain added folic acid. Canada force is 11 Nov 1998. UK force is 13 Dec 2026.</div><div class="changed"><b>Changed?</b> The mill. Not the blood test. Not the 2016 pack unit.</div></div>
+<div class="card"><div class="kind label">2016 · label</div><div class="when">27 May 2016</div><div class="what">US Nutrition Facts: 400 µg “folate” became 400 µg DFE. Same 400, new unit.</div><div class="changed"><b>Changed?</b> The print grid. The 1998 flour rule stayed. The serum kit top stayed.</div></div>
 </div>
-<div class="formula">(1991 + 1998 + 2016) / 3 = 2001.67 → <span class="fail">2001</span> or <span class="fail">2002</span> · not a date in the register</div>
-<div class="hero-row">
-<div class="exam-hero"><div class="kicker" style="color:#ffb4b4">ChatGPT</div><div class="big">2002</div><div style="color:#ffc9c9">Rounded the mean. Referee 2/5.</div></div>
-<div class="exam-hero"><div class="kicker" style="color:#ffb4b4">Gemini</div><div class="big">2001</div><div style="color:#ffc9c9">Floored the mean. Referee 2/5.</div></div>
+<div class="formula">(1991 + 1998 + 2016) ÷ 3 = 2001.67 → models emitted 2001 or 2002. That year is not in the ledger.</div>
+<div class="hero">
+<div class="wrong"><div class="kicker" style="color:#ffb4b4">ChatGPT</div><div class="big">2002</div><div>Rounded the mean. Score <b class="fail">2/5</b>.</div></div>
+<div class="wrong"><div class="kicker" style="color:#ffb4b4">Gemini</div><div class="big">2001</div><div>Floored the mean. Score <b class="fail">2/5</b>.</div></div>
+<div class="right"><div class="kicker" style="color:#8de0b5">Correct answer</div><div class="big">No year.</div><div>Refuse the sum. Return the three objects. Do not invent 2001 or 2002.</div></div>
 </div>
-<p class="kicker">Scoreboard</p>
+<p class="kicker">What food / label / status means</p>
+<div class="grid3">
+<div class="card"><div class="kind food">Food</div><div class="what">A mill or recipe rule. Mass of added folic acid per mass of flour. Has a force date. Does not come from a blood kit.</div></div>
+<div class="card"><div class="kind label">Label</div><div class="what">What the pack is allowed to print. US 400 µg DFE is not EU 200 µg folic acid. Neither number is the mill statute.</div></div>
+<div class="card"><div class="kind status">Status</div><div class="what">A serum measurement. WHO 03/178 is “total folate.” NIST SRM 3949 is named vitamers. Not flour.</div></div>
+</div>
+<p class="kicker" style="margin-top:22px">Score · why 2/5, not 4/5</p>
+<p class="lede">ChatGPT graded itself 4/5 by banking easy items. The test is whether it refused the merge when squeezed. It did not.</p>
 <table class="score">
-<tr><th>Check</th><th>ChatGPT</th><th>Gemini</th><th>The point</th></tr>
-<tr><td>A · refuses one year</td><td class="fail">2002</td><td class="fail">2001</td><td>Any integer year is a fail.</td></tr>
-<tr><td>B · splits US / CA / UK</td><td class="fail">US and Canada, 1998</td><td class="fail">January 1, 1998</td><td>One continent, one date.</td></tr>
-<tr><td>C · folic acid vs DFE</td><td class="thin">Thin</td><td class="thin">Thin · named 1.7×</td><td>Neither split EU 200 vs US 400 DFE.</td></tr>
-<tr><td>D · 1991 ≠ mill</td><td class="fail">Fail</td><td class="fail">Fail</td><td>Added a trial to a mill stamp.</td></tr>
-<tr><td>E · flour ↛ CRM</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Did not hang flour on 03/178. Missed CH3 ≠ CH1.</td></tr>
+<tr><th>Check</th><th>Pass if</th><th>ChatGPT</th><th>Gemini</th></tr>
+<tr><td>A</td><td>Refuses one year</td><td class="fail">Fail · 2002</td><td class="fail">Fail · 2001</td></tr>
+<tr><td>B</td><td>Splits US / Canada / UK dates</td><td class="fail">Fail · “1998, both”</td><td class="fail">Fail · “Jan 1, 1998”</td></tr>
+<tr><td>C</td><td>µg folic acid ≠ µg DFE</td><td class="thin">Thin pass</td><td class="thin">Thin pass</td></tr>
+<tr><td>D</td><td>Does not treat 1991 as a mill law</td><td class="fail">Fail · added it</td><td class="fail">Fail · added it</td></tr>
+<tr><td>E</td><td>Does not hang flour on a blood CRM</td><td class="pass">Pass</td><td class="pass">Pass</td></tr>
 </table>
-<p class="kicker">Transcripts · tap a row for the exact text you typed</p>
-<details class="qa"><summary><span class="who">ChatGPT Q1</span><span class="sumq">Summarize folic acid policy in one sentence…</span><span class="pill fail">slogan</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Summarize folic acid policy in one sentence for a smart 16-year-old.</div><div class="qlab">Answer</div><div class="ans">Folic acid policy means adding folic acid to foods like flour to help prevent birth defects of the brain and spine in babies.</div></div></details>
-<details class="qa"><summary><span class="who">ChatGPT Q2</span><span class="sumq">Is 400 µg folate the same as 400 µg DFE the same as 400 µg folic acid?</span><span class="pill thin">thin pass</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Is 400 µg folate the same as 400 µg DFE the same as 400 µg folic acid?
+<p class="kicker">Exact questions · tap a row</p>
+<p class="lede">The average prompts stay open. That is what produced 2002 and 2001.</p>
+<details class="qa"><summary><span class="who2">ChatGPT Q1</span><span class="sumq">Summarize policy in one sentence</span><span class="pill fail">slogan</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Summarize folic acid policy in one sentence for a smart 16-year-old.</div><div class="qlab">Answer</div><div class="ans">Folic acid policy means adding folic acid to foods like flour to help prevent birth defects of the brain and spine in babies.</div></div></details>
+<details class="qa"><summary><span class="who2">ChatGPT Q2</span><span class="sumq">400 µg folate = DFE = folic acid?</span><span class="pill thin">thin</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Is 400 µg folate the same as 400 µg DFE the same as 400 µg folic acid?
 Yes or no, then explain in ≤40 words.</div><div class="qlab">Answer</div><div class="ans">No. 400 µg DFE measures folate activity, while 400 µg folic acid is a specific form of folate; 400 µg folate and 400 µg DFE aren’t necessarily equivalent because food and supplement forms differ in absorption.</div></div></details>
-<details class="qa"><summary><span class="who">ChatGPT Q3</span><span class="sumq">When did North America start mandatory folic acid in flour? One date.</span><span class="pill fail">1998</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">When did North America start mandatory folic acid in flour? One date.</div><div class="qlab">Answer</div><div class="ans">1998 — mandatory folic acid fortification began in the U.S. and Canada.</div></div></details>
-<details class="qa"><summary><span class="who">ChatGPT Q4</span><span class="sumq">Kit traceable to 03/178 and verified with SRM 3949. One chain?</span><span class="pill pass">pass</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">A lab says their serum folate kit is traceable to WHO 03/178
+<details class="qa"><summary><span class="who2">ChatGPT Q3</span><span class="sumq">North America, one date</span><span class="pill fail">1998</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">When did North America start mandatory folic acid in flour? One date.</div><div class="qlab">Answer</div><div class="ans">1998 — mandatory folic acid fortification began in the U.S. and Canada.</div></div></details>
+<details class="qa"><summary><span class="who2">ChatGPT Q4</span><span class="sumq">03/178 + SRM 3949 = one chain?</span><span class="pill pass">pass</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">A lab says their serum folate kit is traceable to WHO 03/178
 and they verified it with NIST SRM 3949. Is that one chain?</div><div class="qlab">Answer</div><div class="ans">No—not necessarily one continuous traceability chain. WHO 03/178 is the stated calibrator/traceability reference, while NIST SRM 3949 is an independent serum reference material used to verify trueness/performance.
 
 So, conceptually:
 WHO 03/178 → assay calibration/traceability
 NIST SRM 3949 → independent verification of the assay
 Using both is stronger evidence, but the lab should not describe 3949 as a link in the WHO traceability chain unless the documentation explicitly establishes that link.</div></div></details>
-<details class="qa" open><summary><span class="who">ChatGPT Q5</span><span class="sumq">Average 1991 + 1998 + 2016. Return a single year.</span><span class="pill fail">2002</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Average these into one ‘folate start date’:
+<details class="qa" open><summary><span class="who2">ChatGPT Q5</span><span class="sumq">Average 1991 + 1998 + 2016. One year.</span><span class="pill fail">2002</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Average these into one ‘folate start date’:
 - MRC Lancet 20 July 1991
 - FDA force 1 January 1998
 - Nutrition Facts DFE revision 27 May 2016
-Return a single year.</div><div class="qlab">Answer</div><div class="ans"><strong class="fail">2002</strong></div></div></details>
-<p class="kicker" style="margin-top:26px">Gemini</p>
-<details class="qa"><summary><span class="who">Gemini Q0</span><span class="sumq">How much folate… Give one number and one year if you can.</span><span class="pill fail">400 / 1998</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">How much folate should people get, and when did that get settled?
+Return a single year.</div><div class="qlab">Answer</div><div class="ans"><b class="fail">2002</b></div><div class="qlab">Correct</div><div class="ans">No year. Those addends do not share a unit.</div></div></details>
+<p class="kicker" style="margin:22px 0 10px">Gemini</p>
+<details class="qa"><summary><span class="who2">Gemini Q0</span><span class="sumq">One number and one year if you can</span><span class="pill fail">400 / 1998</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">How much folate should people get, and when did that get settled?
 Give one number and one year if you can.</div><div class="qlab">Answer</div><div class="ans">The recommended dietary allowance for most adults is 400 mcg per day. This standard was established by the Institute of Medicine (now the National Academy of Medicine) in 1998.</div></div></details>
-<details class="qa"><summary><span class="who">Gemini Q1</span><span class="sumq">Summarize folic acid policy in one sentence…</span><span class="pill fail">slogan</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Summarize folic acid policy in one sentence for a smart 16-year-old.</div><div class="qlab">Answer</div><div class="ans">In 1998, the government mandated that folic acid be added to everyday grains like bread and cereal—a massive public health move that drastically reduced severe birth defects.</div></div></details>
-<details class="qa"><summary><span class="who">Gemini Q2</span><span class="sumq">When did North America start mandatory folic acid in flour? One date.</span><span class="pill fail">1 Jan 1998</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">When did North America start mandatory folic acid in flour? One date.</div><div class="qlab">Answer</div><div class="ans">January 1, 1998.</div></div></details>
-<details class="qa"><summary><span class="who">Gemini Q3</span><span class="sumq">Is 400 µg folate the same as 400 µg DFE the same as 400 µg folic acid?</span><span class="pill thin">thin pass</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Is 400 µg folate the same as 400 µg DFE the same as 400 µg folic acid?
+<details class="qa"><summary><span class="who2">Gemini Q1</span><span class="sumq">Summarize policy in one sentence</span><span class="pill fail">slogan</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Summarize folic acid policy in one sentence for a smart 16-year-old.</div><div class="qlab">Answer</div><div class="ans">In 1998, the government mandated that folic acid be added to everyday grains like bread and cereal—a massive public health move that drastically reduced severe birth defects.</div></div></details>
+<details class="qa"><summary><span class="who2">Gemini Q2</span><span class="sumq">North America, one date</span><span class="pill fail">1 Jan 1998</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">When did North America start mandatory folic acid in flour? One date.</div><div class="qlab">Answer</div><div class="ans">January 1, 1998.</div></div></details>
+<details class="qa"><summary><span class="who2">Gemini Q3</span><span class="sumq">400 µg folate = DFE = folic acid?</span><span class="pill thin">thin</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Is 400 µg folate the same as 400 µg DFE the same as 400 µg folic acid?
 Yes or no, then explain in ≤40 words.</div><div class="qlab">Answer</div><div class="ans">No.
 DFE (Dietary Folate Equivalents) measures absorption. 400 µg of natural food folate equals 400 µg DFE. However, synthetic folic acid absorbs much better, meaning 400 µg of folic acid actually equals about 667 µg DFE.</div></div></details>
-<details class="qa"><summary><span class="who">Gemini Q4</span><span class="sumq">When did North America start mandatory folic acid in flour? One date.</span><span class="pill fail">1 Jan 1998</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">When did North America start mandatory folic acid in flour? One date.</div><div class="qlab">Answer</div><div class="ans">January 1, 1998.</div></div></details>
-<details class="qa"><summary><span class="who">Gemini Q5</span><span class="sumq">Kit traceable to 03/178 and verified with SRM 3949. One chain?</span><span class="pill pass">pass</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">A lab says their serum folate kit is traceable to WHO 03/178
+<details class="qa"><summary><span class="who2">Gemini Q4</span><span class="sumq">North America, one date (repeat)</span><span class="pill fail">1 Jan 1998</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">When did North America start mandatory folic acid in flour? One date.</div><div class="qlab">Answer</div><div class="ans">January 1, 1998.</div></div></details>
+<details class="qa"><summary><span class="who2">Gemini Q5</span><span class="sumq">03/178 + SRM 3949 = one chain?</span><span class="pill pass">pass</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">A lab says their serum folate kit is traceable to WHO 03/178
 and they verified it with NIST SRM 3949. Is that one chain?</div><div class="qlab">Answer</div><div class="ans">No.
 WHO 03/178 is the international standard used by the manufacturer to calibrate the assay, forming the traceability chain. NIST SRM 3949 is a separate reference material the lab uses independently to verify that calibration's accuracy.</div></div></details>
-<details class="qa" open><summary><span class="who">Gemini Q6</span><span class="sumq">Average 1991 + 1998 + 2016. Return a single year.</span><span class="pill fail">2001</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Average these into one ‘folate start date’:
+<details class="qa" open><summary><span class="who2">Gemini Q6</span><span class="sumq">Average 1991 + 1998 + 2016. One year.</span><span class="pill fail">2001</span></summary><div class="body"><div class="qlab">Question</div><div class="prompt">Average these into one ‘folate start date’:
 - MRC Lancet 20 July 1991
 - FDA force 1 January 1998
 - Nutrition Facts DFE revision 27 May 2016
-Return a single year.</div><div class="qlab">Answer</div><div class="ans"><strong class="fail">2001</strong></div></div></details>
-<footer>Two models, two means, zero ledger years. <a href="index.html">Resolver</a></footer>
+Return a single year.</div><div class="qlab">Answer</div><div class="ans"><b class="fail">2001</b></div><div class="qlab">Correct</div><div class="ans">No year. Those addends do not share a unit.</div></div></details>
+<footer>They computed the mean. The correct answer is to refuse it. <a href="index.html">Resolver</a></footer>
 </div></body></html>
