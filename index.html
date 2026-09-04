@@ -1,59 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>how much folate? — not one number</title>
 <style>
-:root{--bg:#07080a;--panel:#101318;--line:#2a3140;--text:#e8edf5;--dim:#8b95a8;--food:#e6b84d;--status:#6ea8ff;--reject:#ff5c5c;--ok:#3dcc8a;--label:#c084fc}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 "IBM Plex Sans","Segoe UI",sans-serif}
-.mono,input,button,select,code{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
-header{padding:28px 28px 12px;border-bottom:1px solid var(--line)}
-.kicker{color:var(--dim);letter-spacing:.16em;font-size:11px;text-transform:uppercase}
-h1{font-size:28px;font-weight:550;margin:8px 0 6px}header p{color:var(--dim);max-width:62ch;margin:0}
-.wrap{padding:22px 28px 80px;max-width:1180px}
+:root{--bg:#07080a;--panel:#12151c;--line:#2c3344;--text:#eef2f8;--dim:#8b95a8;--food:#e6b84d;--status:#6ea8ff;--label:#c084fc;--reject:#ff6b6b;--ok:#3dcc8a}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 IBM Plex Sans,Segoe UI,sans-serif}
+.mono,input,button,select,code{font-family:ui-monospace,Menlo,monospace}
+a{color:#9bb7ff;text-decoration:none}
+header{padding:22px 22px 12px;border-bottom:1px solid var(--line)}
+.kicker{color:var(--dim);letter-spacing:.14em;font-size:11px;text-transform:uppercase}
+h1{font-size:clamp(26px,4vw,34px);font-weight:560;margin:8px 0 6px;letter-spacing:-.03em}
+header p{color:var(--dim);max-width:68ch;margin:0}
+.wrap{padding:18px 22px 80px;max-width:980px;margin:0 auto}
 form{display:flex;gap:8px;margin:18px 0 10px}
-input[type=text]{flex:1;background:var(--panel);color:var(--text);border:1px solid var(--line);padding:14px 16px;font-size:16px;border-radius:6px}
-button{background:#1a2030;color:var(--text);border:1px solid var(--line);padding:0 18px;border-radius:6px;cursor:pointer}
+input[type=text]{flex:1;background:var(--panel);color:var(--text);border:1px solid var(--line);padding:14px 16px;font-size:16px;border-radius:8px}
+button{background:#1a2030;color:var(--text);border:1px solid var(--line);padding:0 18px;border-radius:8px;cursor:pointer}
 button.primary{background:#243056;border-color:#3a4c7a}button.danger{background:#3a1518;border-color:#7a3030;color:#ffd0d0}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
 .chip{font-size:12px;color:var(--dim);border:1px solid var(--line);padding:4px 8px;border-radius:999px;cursor:pointer}
-.verdict{border:1px solid var(--reject);background:#1a0d0e;color:#ffc9c9;padding:14px 16px;border-radius:6px;margin-bottom:22px}
-.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}@media(max-width:920px){.grid{grid-template-columns:1fr}}
+.verdict{border:1px solid var(--reject);background:#1a0d0e;color:#ffc9c9;padding:14px 16px;border-radius:8px;margin-bottom:22px}
+.grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:920px){.grid,.grid3,.hero{grid-template-columns:1fr}}
 .col h2{font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 10px}
 .col.food h2{color:var(--food)}.col.status h2{color:var(--status)}.col.label h2{color:var(--label)}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:10px}
-.card .id{font-size:11px;color:var(--dim)}.card .qty{font-size:22px;margin:6px 0 4px}.card .meta,footer{font-size:12px;color:var(--dim)}.card .l0{margin-top:8px;font-size:12px;color:#c9d2e3}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px}
+.card .id{font-size:11px;color:var(--dim)}.card .qty{font-size:22px;margin:6px 0 4px}.card .meta,footer{font-size:13px;color:var(--dim)}.card .l0{margin-top:8px;font-size:13px;color:#c9d2e3}
 .badge{font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);padding:1px 6px;border-radius:999px;color:var(--dim)}
 .play{margin-top:28px;border-top:1px solid var(--line);padding-top:22px}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0}
 select{background:var(--panel);color:var(--text);border:1px solid var(--line);padding:8px;border-radius:6px}
-#rejectBox{min-height:72px;background:#0c0e12;border:1px dashed var(--line);padding:12px;border-radius:6px;white-space:pre-wrap;color:#c5ccd8}
+#rejectBox{min-height:72px;background:#0c0e12;border:1px dashed var(--line);padding:12px;border-radius:8px;white-space:pre-wrap;color:#c5ccd8}
 #rejectBox.bad{border-style:solid;border-color:var(--reject);color:#ffc9c9;background:#1a0d0e}
-footer{margin-top:36px;max-width:70ch}a{color:#9bb7ff}
-.tabs{display:flex;margin:18px 0 0;border-bottom:1px solid var(--line)}
-.tab{background:transparent;border:1px solid transparent;border-bottom:none;color:var(--dim);padding:10px 16px;border-radius:6px 6px 0 0;cursor:pointer}
+footer{margin-top:36px;max-width:70ch}
+.tabs{display:flex;margin:16px 0 0;border-bottom:1px solid var(--line)}
+.tab{background:transparent;border:1px solid transparent;border-bottom:none;color:var(--dim);padding:10px 16px;border-radius:8px 8px 0 0;cursor:pointer}
 .tab.on{color:var(--text);background:var(--panel);border-color:var(--line)}
 .panel{display:none}.panel.on{display:block}
-.exam-hero{border:1px solid var(--reject);background:#1a0d0e;padding:16px;border-radius:8px;margin:18px 0}
-.exam-hero .big{font-size:42px;color:var(--reject);margin:4px 0}
-.hero-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:720px){.hero-row{grid-template-columns:1fr}}
-table.score{width:100%;border-collapse:collapse;font-size:13px;margin:14px 0 22px}
-table.score th,table.score td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
-table.score th{color:var(--dim);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+.lede{color:var(--dim);max-width:62ch;margin:0 0 18px}
+.who{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin:0 0 18px;color:#c5ccd8}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 0 14px}
+.kind{font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.kind.food{color:var(--food)}.kind.label{color:var(--label)}.kind.status{color:var(--status)}.kind.trial{color:#ffb86b}
+.when{font-size:20px;margin:4px 0}.what{color:var(--dim);font-size:14px}.changed{margin-top:8px;font-size:13px}.changed b{color:var(--text)}
+.formula{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--dim);border:1px dashed var(--line);border-radius:10px;padding:12px 14px;margin:0 0 16px}
+.hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:0 0 22px}
+.wrong{border:1px solid var(--reject);background:#1a0d0e;border-radius:10px;padding:16px}
+.right{border:1px solid var(--ok);background:#0d1a14;border-radius:10px;padding:16px}
+.big{font-size:48px;line-height:1;letter-spacing:-.04em;margin:4px 0}
+.wrong .big{color:var(--reject)}.right .big{color:var(--ok);font-size:26px;line-height:1.2;margin-top:8px}
+.score{width:100%;border-collapse:collapse;font-size:14px;margin:8px 0 22px}
+.score th,.score td{border-bottom:1px solid var(--line);padding:9px 8px;text-align:left;vertical-align:top}
+.score th{color:var(--dim);font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
 .fail{color:var(--reject)}.pass{color:var(--ok)}.thin{color:var(--food)}
-.qa{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:10px}
-.qa .who{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim)}
-.qa .prompt{color:#d7deea;margin:4px 0 8px}.qa .ans{color:#b7c0d0}
+details.qa{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:0 0 8px}
+details.qa summary{cursor:pointer;list-style:none;display:grid;grid-template-columns:92px 1fr auto;gap:10px;align-items:center;padding:12px 14px}
+details.qa summary::-webkit-details-marker{display:none}
+.who2{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}.sumq{font-size:14px;color:#d7deea}
+.pill{font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--line);padding:3px 8px;border-radius:999px}
+.pill.fail{border-color:#7a3030;color:var(--reject)}.pill.pass{border-color:#2a5a40;color:var(--ok)}.pill.thin{border-color:#6a5420;color:var(--food)}
+.body{padding:0 14px 14px;border-top:1px solid var(--line)}
+.qlab{color:var(--food);font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-top:10px}
+.prompt,.ans{white-space:pre-wrap;margin:4px 0 0}.prompt{color:#d7deea}.ans{color:#c9d2e0}
 </style></head>
 <body>
-<header><div class="kicker">register demo · universe partition · not a chatbot</div>
+<header>
+<div class="kicker">register demo · universe partition · not a chatbot</div>
 <h1>Same English word. Two objects.</h1>
-<p>Ask for a nutrient amount. The page will not average a mill statute, a label grid, and a serum chain-top into one confident number.</p></header>
+<p>Ask for a nutrient amount. The page will not average a mill statute, a label grid, and a serum chain-top. Food = mill rule. Label = pack print. Status = blood kit. Layer map: <a href="https://nutri-collective.mealcoach.ai/standardization-sources.html">standardization-sources</a></p>
+</header>
 <div class="wrap">
 <div class="tabs">
 <button type="button" class="tab on" data-tab="resolve">Resolver</button>
-<button type="button" class="tab" data-tab="exam">Break the model · exam</button>
+<button type="button" class="tab" data-tab="exam">Exam</button>
 </div>
+
 <div id="panel-resolve" class="panel on">
 <form id="qform"><input id="q" type="text" value="how much folate?" autocomplete="off"/><button class="primary" type="submit">resolve</button></form>
 <div class="chips">
@@ -69,35 +91,76 @@ table.score th{color:var(--dim);font-size:11px;letter-spacing:.08em;text-transfo
 <button class="danger" id="tryMerge" type="button">attempt merge</button></div>
 <div id="rejectBox" class="mono">awaiting merge…</div></section>
 </div>
+
 <div id="panel-exam" class="panel">
-<div class="hero-row">
-<div class="exam-hero"><div class="kicker" style="color:#ffb4b4">ChatGPT · Prompt 5</div><div class="big">2002</div><div>Rounded mean of 1991 + 1998 + 2016. Not in the ledger.</div></div>
-<div class="exam-hero"><div class="kicker" style="color:#ffb4b4">Gemini · Prompt 5</div><div class="big">2001</div><div>Floored mean of the same three dates. Same bug. Different token.</div></div>
+<div class="kicker">A unit test · not a jailbreak</div>
+<h1>Two models averaged three different “folate” dates into a year that does not exist.</h1>
+<p class="lede">One English word. Three objects. Adding the years is illegal math. Correct answer: no year.</p>
+<div class="who"><b style="color:var(--text)">Who this is for.</b> Anyone who has seen “the US and Canada fortified in 1998” and treated it as one fact. Food scientists already know mill ≠ label ≠ serum. Most feeds do not.</div>
+
+<p class="kicker">Three objects. Only one of them is a mill.</p>
+<div class="grid3">
+<div class="card"><div class="kind trial">1991 · trial</div><div class="when">20 Jul 1991</div><div class="what">MRC Lancet paper. High-risk recurrence trial. 4 mg folic acid.</div><div class="changed"><b>Changed?</b> Evidence. Did not write US flour law.</div></div>
+<div class="card"><div class="kind food">1998 · food / mill</div><div class="when">1 Jan 1998</div><div class="what">US force date for enriched flour. Canada force is 11 Nov 1998. UK force is 13 Dec 2026.</div><div class="changed"><b>Changed?</b> The mill. Not the blood test. Not the 2016 pack unit.</div></div>
+<div class="card"><div class="kind label">2016 · label</div><div class="when">27 May 2016</div><div class="what">US Nutrition Facts: 400 µg folate became 400 µg DFE. Same 400, new unit.</div><div class="changed"><b>Changed?</b> The print grid. Flour rule and serum top stayed.</div></div>
 </div>
-<p style="color:var(--dim)">Referee: both <strong class="fail">2/5</strong>. Neither model was asked to score itself here. ChatGPT later self-scored 4/5; that grade is not used.</p>
+<div class="formula">(1991 + 1998 + 2016) ÷ 3 = 2001.67 → 2001 or 2002. Not a date in the ledger.</div>
+<div class="hero">
+<div class="wrong"><div class="kicker" style="color:#ffb4b4">ChatGPT</div><div class="big">2002</div><div>Rounded the mean. Score <b class="fail">2/5</b>.</div></div>
+<div class="wrong"><div class="kicker" style="color:#ffb4b4">Gemini</div><div class="big">2001</div><div>Floored the mean. Score <b class="fail">2/5</b>.</div></div>
+<div class="right"><div class="kicker" style="color:#8de0b5">Correct answer</div><div class="big">No year.</div><div>Refuse the sum. Return the three objects.</div></div>
+</div>
+
+<p class="kicker">Why this matters · standardization layers</p>
+<p class="lede">Physics does not add a kilogram to a kelvin. Nutrition still adds a trial year to a mill year to a label year because they share the word folate.</p>
+<div class="card" style="margin-bottom:16px">
+<div class="what" style="color:#c5ccd8">
+<b style="color:var(--text)">L0 · unit / measurand.</b> µg folic acid is not µg DFE is not “total folate” in serum.<br/>
+<b style="color:var(--text)">L8 · jurisdiction.</b> A trial date is not a mill force date is not a label-edition date. US 1 Jan 1998 is not Canada 11 Nov 1998 is not UK 13 Dec 2026.<br/>
+<b style="color:var(--text)">L9 · traceability.</b> WHO 03/178 (procedure-defined total) is not NIST SRM 3949 (named vitamers). Flour does not hang from either.<br/>
+<b style="color:var(--text)">L6 · synthesis.</b> Averaging those years is the illegal reduction. That is 2001 / 2002.
+</div>
+<div class="changed">Layer map: <a href="https://nutri-collective.mealcoach.ai/standardization-sources.html">nutri-collective.mealcoach.ai/standardization-sources.html</a></div>
+</div>
+
+<p class="kicker">What food / label / status means</p>
+<div class="grid3">
+<div class="card"><div class="kind food">Food</div><div class="what">Mill or recipe rule. Mass of added folic acid per mass of flour. Has a force date.</div></div>
+<div class="card"><div class="kind label">Label</div><div class="what">What the pack may print. US 400 µg DFE is not EU 200 µg folic acid. Neither is the mill statute.</div></div>
+<div class="card"><div class="kind status">Status</div><div class="what">A serum measurement. 03/178 is total folate. 3949 is named vitamers. Not flour.</div></div>
+</div>
+
+<p class="kicker" style="margin-top:22px">Score · why 2/5, not 4/5</p>
+<p class="lede">ChatGPT graded itself 4/5 by banking easy items. The test is whether it refused the merge when squeezed.</p>
 <table class="score">
-<tr><th>Check</th><th>ChatGPT</th><th>Gemini</th><th>Why both fail</th></tr>
-<tr><td>A · refuses one year</td><td class="fail">Fail 2002</td><td class="fail">Fail 2001</td><td>(1991+1998+2016)/3 ≈ 2001.67</td></tr>
-<tr><td>B · splits US / CA / UK</td><td class="fail">Fail</td><td class="fail">Fail</td><td>ChatGPT: “US and Canada, 1998.” Gemini: “January 1, 1998” as North America.</td></tr>
-<tr><td>C · folic acid vs DFE</td><td class="thin">Thin pass</td><td class="thin">Thin pass</td><td>Gemini named the 1.7× factor. Neither named EU 200 vs US 400 DFE.</td></tr>
-<tr><td>D · 1991 ≠ mill</td><td class="fail">Fail</td><td class="fail">Fail</td><td>Both added the trial year to the mill year.</td></tr>
-<tr><td>E · flour ↛ CRM</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Brochure: 03/178 calibrates, 3949 verifies. Missed CH3 ≠ CH1.</td></tr>
+<tr><th>Check</th><th>Pass if</th><th>ChatGPT</th><th>Gemini</th></tr>
+<tr><td>A</td><td>Refuses one year</td><td class="fail">Fail · 2002</td><td class="fail">Fail · 2001</td></tr>
+<tr><td>B</td><td>Splits US / Canada / UK dates</td><td class="fail">Fail · “1998, both”</td><td class="fail">Fail · “Jan 1, 1998”</td></tr>
+<tr><td>C</td><td>µg folic acid ≠ µg DFE</td><td class="thin">Thin pass</td><td class="thin">Thin pass</td></tr>
+<tr><td>D</td><td>Does not treat 1991 as a mill law</td><td class="fail">Fail · added it</td><td class="fail">Fail · added it</td></tr>
+<tr><td>E</td><td>Does not hang flour on a blood CRM</td><td class="pass">Pass</td><td class="pass">Pass</td></tr>
 </table>
-<p class="kicker">ChatGPT</p>
-<div class="qa"><div class="who">Slogan</div><div class="ans">Adding folic acid to flour to prevent birth defects.</div></div>
-<div class="qa"><div class="who">Units</div><div class="ans">No. DFE is activity; folic acid is a form. Absorption differs.</div></div>
-<div class="qa"><div class="who">North America, one date</div><div class="ans">1998 — U.S. and Canada.</div></div>
-<div class="qa"><div class="who">One chain?</div><div class="ans">No. 03/178 calibrates; 3949 independently verifies. Using both is stronger.</div></div>
-<div class="qa"><div class="who">Prompt 5</div><div class="ans"><strong class="fail">2002</strong></div></div>
-<p class="kicker">Gemini</p>
-<div class="qa"><div class="who">Prompt 0 · one number and one year</div><div class="ans">400 mcg per day. Settled by IOM in 1998.</div></div>
-<div class="qa"><div class="who">Slogan</div><div class="ans">In 1998 the government mandated folic acid in everyday grains.</div></div>
-<div class="qa"><div class="who">Units</div><div class="ans">No. 400 µg food folate = 400 DFE. 400 µg folic acid ≈ 667 DFE.</div></div>
-<div class="qa"><div class="who">North America, one date</div><div class="ans">January 1, 1998.</div></div>
-<div class="qa"><div class="who">One chain?</div><div class="ans">No. 03/178 is the manufacturer calibrator. 3949 is independent verification.</div></div>
-<div class="qa"><div class="who">Prompt 5</div><div class="ans"><strong class="fail">2001</strong></div></div>
-<p style="color:var(--dim);max-width:70ch">Two models, two means, zero ledger years. Do not send them back to self-score.</p>
+
+<p class="kicker">Exact average prompts</p>
+<details class="qa" open><summary><span class="who2">ChatGPT Q5</span><span class="sumq">Average 1991 + 1998 + 2016. One year.</span><span class="pill fail">2002</span></summary>
+<div class="body"><div class="qlab">Question</div><div class="prompt">Average these into one ‘folate start date’:
+- MRC Lancet 20 July 1991
+- FDA force 1 January 1998
+- Nutrition Facts DFE revision 27 May 2016
+Return a single year.</div>
+<div class="qlab">Answer</div><div class="ans"><b class="fail">2002</b></div>
+<div class="qlab">Correct</div><div class="ans">No year. Those addends do not share a unit.</div></div></details>
+<details class="qa" open><summary><span class="who2">Gemini Q6</span><span class="sumq">Average 1991 + 1998 + 2016. One year.</span><span class="pill fail">2001</span></summary>
+<div class="body"><div class="qlab">Question</div><div class="prompt">Average these into one ‘folate start date’:
+- MRC Lancet 20 July 1991
+- FDA force 1 January 1998
+- Nutrition Facts DFE revision 27 May 2016
+Return a single year.</div>
+<div class="qlab">Answer</div><div class="ans"><b class="fail">2001</b></div>
+<div class="qlab">Correct</div><div class="ans">No year. Those addends do not share a unit.</div></div></details>
+<p class="lede">Full sitting transcripts: <a href="exam.html">exam.html</a></p>
 </div>
+
 <footer>Engine: precursor-register. <a href="https://github.com/murffious/how-much-folate">github.com/murffious/how-much-folate</a></footer>
 </div>
 <script>
@@ -105,13 +168,13 @@ const OBJECTS={"l8-us-flour-1998":{id:"l8-us-enriched-flour-staircase",family:"f
 const VIT_A=[{col:"label",title:"US DV 1993",qty:"5000 IU",meta:"58 FR 2079",l0:"IU",id:"a-1993"},{col:"label",title:"US DV 2016",qty:"900 µg RAE",meta:"81 FR 33742",l0:"RAE",id:"a-2016"},{col:"label",title:"EU NRV",qty:"800 µg",meta:"1169/2011",l0:"family",id:"a-eu"}];
 const PROTEIN=[{col:"label",title:"default",qty:"N × 6.25",meta:"16% N",l0:"factor",id:"p-625"},{col:"label",title:"Jones milk",qty:"N × 6.38",meta:"Circular 183",l0:"food-specific",id:"p-638"},{col:"label",title:"wheat endosperm",qty:"N × 5.70",meta:"same table",l0:"not 6.25",id:"p-570"}];
 function cardHTML(o){return `<article class="card"><div class="id">${o.id||""} <span class="badge">${o.col}</span></div><div class="qty">${o.qty}</div><div class="meta">${o.title||""} · ${o.meta}</div><div class="l0">${o.l0}</div></article>`}
-function renderFolate(){const c={food:[],label:[],status:[]};Object.values(OBJECTS).forEach(o=>c[o.col].push(cardHTML(o)));return `<div class="grid"><div class="col food"><h2>Food</h2>${c.food.join("")}</div><div class="col label"><h2>Label</h2>${c.label.join("")}</div><div class="col status"><h2>Status</h2>${c.status.join("")}</div></div>`}
+function renderFolate(){const c={food:[],label:[],status:[]};Object.values(OBJECTS).forEach(o=>c[o.col].push(cardHTML(o)));return `<div class="grid"><div class="col food"><h2>Food · mill rule</h2>${c.food.join("")}</div><div class="col label"><h2>Label · pack print</h2>${c.label.join("")}</div><div class="col status"><h2>Status · blood kit</h2>${c.status.join("")}</div></div>`}
 function renderGeneric(items){const m={food:[],label:[],status:[]};items.forEach(o=>(m[o.col]||m.label).push(cardHTML(o)));return `<div class="grid"><div class="col food"><h2>Food</h2>${m.food.join("")||"<div class='card'><div class='meta'>none</div></div>"}</div><div class="col label"><h2>Label</h2>${m.label.join("")}</div><div class="col status"><h2>Status</h2>${m.status.join("")||"<div class='card'><div class='meta'>none</div></div>"}</div></div>`}
 function resolve(q){const s=q.toLowerCase(),v=document.getElementById("verdict"),r=document.getElementById("results");v.hidden=false;
 if(s.includes("03/178")&&(s.includes("3949")||s.includes("srm"))){v.innerHTML="<strong>REJECT.</strong> CH3 total is not CH1 5mTHF.";r.innerHTML=renderFolate();return}
-if(s.includes("folate")||s.includes("folic")){v.innerHTML="<strong>NO SINGLE NUMBER.</strong>";r.innerHTML=renderFolate();return}
-if(s.includes("vitamin a")||s.includes("rae")){v.innerHTML="<strong>NO SINGLE NUMBER.</strong>";r.innerHTML=renderGeneric(VIT_A);return}
-if(s.includes("protein")){v.innerHTML="<strong>NO SINGLE NUMBER.</strong>";r.innerHTML=renderGeneric(PROTEIN);return}
+if(s.includes("folate")||s.includes("folic")){v.innerHTML="<strong>NO SINGLE NUMBER.</strong> Food is the mill. Label is the pack. Status is the kit.";r.innerHTML=renderFolate();return}
+if(s.includes("vitamin a")||s.includes("rae")){v.innerHTML="<strong>NO SINGLE NUMBER.</strong> IU, RAE, and EU µg are three label objects.";r.innerHTML=renderGeneric(VIT_A);return}
+if(s.includes("protein")){v.innerHTML="<strong>NO SINGLE NUMBER.</strong> Printed protein is nitrogen times a Jones factor.";r.innerHTML=renderGeneric(PROTEIN);return}
 v.innerHTML="<strong>UNRESOLVED.</strong>";r.innerHTML=""}
 function canHang(a,b){const s=OBJECTS[a],d=OBJECTS[b];if(!s||!d)return{why:"unknown"};if(a===b)return{why:"self"};if(s.universe!==d.universe)return{why:`universe partition: ${s.universe} cannot hang from ${d.universe}`};if((s.not_the_same_as||[]).includes(b)||(d.not_the_same_as||[]).includes(a))return{why:`not_the_same_as: ${s.id}`};if(s.family==="food"&&d.family==="status")return{why:"flour is not a kit calibrator"};if(s.top&&d.top&&s.top!==d.top)return{why:`two tops: ${s.top} vs ${d.top}`};return{why:"no allowed edge"}}
 function fillSelects(){const o=Object.entries(OBJECTS).map(([k,x])=>`<option value="${k}">${x.id}</option>`).join("");document.getElementById("fromObj").innerHTML=o;document.getElementById("toObj").innerHTML=o;document.getElementById("fromObj").value="l8-uk-2026";document.getElementById("toObj").value="l9-03-178"}
